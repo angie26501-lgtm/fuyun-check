@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>我的安心感小檢查 ｜ 女人療錢 · 財富花園</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  :root{
+    --green:#1f4a2e; --green2:#2c5433; --greenD:#163522;
+    --gold:#c9a24b; --goldL:#e3c885; --cream:#f6f1e4; --creamD:#d9d2bf;
+    --soft:#8fa98f;
+  }
+  html,body{height:100%;}
+  body{
+    font-family:"PingFang TC","Microsoft JhengHei","Noto Sans CJK TC","Helvetica Neue",sans-serif;
+    background:linear-gradient(165deg,#163522 0%,#1f4a2e 45%,#2c5433 100%);
+    background-attachment:fixed; color:var(--cream);
+    min-height:100%; display:flex; justify-content:center; align-items:flex-start;
+    padding:26px 18px 40px;
+  }
+  .wrap{width:100%; max-width:440px;}
+  .screen{display:none; animation:fade .45s ease;}
+  .screen.on{display:block;}
+  @keyframes fade{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+
+  .sprout{display:block;margin:6px auto 14px;}
+  .kicker{text-align:center;font-size:13px;letter-spacing:4px;color:var(--goldL);font-weight:700;}
+  .title{text-align:center;font-size:30px;font-weight:800;margin:10px 0 6px;line-height:1.35;}
+  .title .g{color:var(--goldL);}
+  .lead{text-align:center;font-size:15px;color:var(--creamD);line-height:1.8;margin-bottom:28px;}
+
+  .btn{display:block;width:100%;border:none;border-radius:16px;padding:17px;font-size:17px;font-weight:800;
+    font-family:inherit;cursor:pointer;background:linear-gradient(135deg,var(--gold),var(--goldL));color:#3a2c0e;
+    box-shadow:0 6px 18px rgba(0,0,0,.25);transition:transform .15s,opacity .2s;}
+  .btn:active{transform:scale(.98);}
+  .btn:disabled{opacity:.35;cursor:default;}
+  .btn.ghost{background:transparent;border:1.5px solid rgba(227,200,133,.5);color:var(--goldL);box-shadow:none;font-weight:700;font-size:15px;padding:13px;margin-top:12px;}
+
+  .prog{display:flex;gap:7px;justify-content:center;margin-bottom:22px;}
+  .dot{width:34px;height:5px;border-radius:3px;background:rgba(255,255,255,.16);}
+  .dot.act{background:var(--goldL);}
+
+  .qno{font-size:13px;color:var(--gold);font-weight:700;letter-spacing:1px;}
+  .q{font-size:22px;font-weight:800;line-height:1.5;margin:8px 0 22px;}
+  .q .s{display:block;font-size:13px;color:var(--soft);font-weight:500;margin-top:8px;}
+
+  .opt{display:flex;align-items:center;gap:13px;width:100%;text-align:left;
+    background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.12);border-radius:15px;
+    padding:16px 16px;margin-bottom:12px;cursor:pointer;font-family:inherit;color:var(--cream);
+    font-size:16.5px;transition:all .18s;}
+  .opt:active{transform:scale(.99);}
+  .opt.sel{background:rgba(227,200,133,.16);border-color:var(--goldL);}
+  .opt .mark{flex:0 0 22px;height:22px;border-radius:50%;border:2px solid var(--soft);transition:all .18s;position:relative;}
+  .opt.sel .mark{border-color:var(--goldL);background:var(--goldL);}
+  .opt.sel .mark::after{content:"";position:absolute;left:6px;top:2px;width:6px;height:11px;
+    border:solid #3a2c0e;border-width:0 2.5px 2.5px 0;transform:rotate(45deg);}
+  .opt b{font-weight:800;}
+  .opt .sub{display:block;font-size:12.5px;color:var(--soft);margin-top:2px;font-weight:500;}
+
+  /* result */
+  .seen{text-align:center;font-size:13px;letter-spacing:3px;color:var(--goldL);font-weight:700;margin-bottom:6px;}
+  .rcard{background:rgba(255,255,255,.07);border:1.5px solid rgba(227,200,133,.35);border-radius:20px;
+    padding:24px 22px;margin-bottom:18px;text-align:center;}
+  .rcard .seed{font-size:14px;color:var(--gold);font-weight:700;margin-bottom:10px;}
+  .rcard .refl{font-size:18px;font-weight:700;line-height:1.85;color:#fff;}
+  .rmsg{text-align:center;font-size:15px;line-height:1.95;color:var(--creamD);margin-bottom:24px;}
+  .rmsg .hl{color:var(--goldL);font-weight:700;}
+  .foot{text-align:center;font-size:12px;color:var(--soft);margin-top:26px;line-height:1.9;}
+  .foot a{color:var(--goldL);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- INTRO -->
+  <section class="screen on" id="s-intro">
+    <svg class="sprout" width="54" height="54" viewBox="0 0 62 86"><ellipse cx="31" cy="80" rx="20" ry="5" fill="#0e2516"/><path d="M31 78 C31 55 31 45 31 33" stroke="#7fae6e" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M31 56 q-13 -5 -17 -15 q13 0 17 10 z" fill="#7fae6e"/><path d="M31 46 q13 -5 17 -15 q-13 0 -17 10 z" fill="#9ac489"/><circle cx="31" cy="30" r="6.5" fill="#e3c885"/></svg>
+    <div class="kicker">女人療錢 · 財富花園</div>
+    <h1 class="title">我的<span class="g">安心感</span>小檢查</h1>
+    <p class="lead">只有 3 個小問題。<br>照感覺填，沒有對錯——<br>這是今天，為你的花園翻的第一鏟土。🌱</p>
+    <button class="btn" onclick="start()">開始檢查</button>
+  </section>
+
+  <!-- QUESTION -->
+  <section class="screen" id="s-q">
+    <div class="prog"><div class="dot" id="d0"></div><div class="dot" id="d1"></div><div class="dot" id="d2"></div></div>
+    <div class="qno" id="qno"></div>
+    <h2 class="q" id="qtext"></h2>
+    <div id="opts"></div>
+    <button class="btn" id="next" disabled onclick="next()">下一題</button>
+  </section>
+
+  <!-- RESULT -->
+  <section class="screen" id="s-result">
+    <div class="seen">— 我看見你了 —</div>
+    <div class="rcard">
+      <div class="seed" id="r-seed"></div>
+      <div class="refl" id="r-refl"></div>
+    </div>
+    <p class="rmsg" id="r-msg"></p>
+    <a class="btn" href="https://lin.ee/6Tm8pI7" target="_blank" rel="noopener" style="text-align:center;text-decoration:none;">加入馥芸 LINE，跟老師說說你的想法</a>
+    <button class="btn ghost" onclick="restart()">重新填一次</button>
+    <div class="foot">琪琪老師 · 馥芸財富學苑<br>願你的財富花園，花開豐盛 🌿</div>
+  </section>
+
+</div>
+
+<script>
+  var QS=[
+    {no:"問題 1 / 3", q:"你現在每個月，大概能存下多少錢？", sub:"憑感覺就好",
+     opts:[{t:"幾乎存不到"},{t:"少少的，不太穩定"},{t:"還算穩定"},{t:"有在固定投資"}]},
+    {no:"問題 2 / 3", q:"這五件事，你現在最放不下哪一個？", sub:"選一個最有感覺的",
+     opts:[
+       {t:"醫療保障", sub:"生病時的費用", k:"med"},
+       {t:"家庭保障", sub:"家人的生活", k:"fam"},
+       {t:"子女教育", sub:"孩子的未來", k:"kid"},
+       {t:"財務自由", sub:"退休與自由", k:"free"},
+       {t:"資產傳承", sub:"把愛傳下去", k:"leg"}
+     ]},
+    {no:"問題 3 / 3", q:"你來這裡，最想帶走的是什麼？", sub:"",
+     opts:[{t:"一份安心"},{t:"清楚的方向"},{t:"具體的方法"},{t:"不再為錢焦慮"}]}
+  ];
+  var REFL={
+    med:{s:"你最放不下：醫療保障", r:"一場病，不該打亂全家的生活。<br>你的在意，是最實際的溫柔——今天，我們就先種這顆種子。"},
+    fam:{s:"你最放不下：家庭保障", r:"你最在意的，是家人有沒有被好好照顧。<br>這份心意，正是所有規劃的起點。"},
+    kid:{s:"你最放不下：子女教育", r:"你心裡，一直裝著孩子的未來。<br>提早一點準備，壓力就小很多——這顆種子，我們會一起慢慢種深。"},
+    free:{s:"你最放不下：財務自由", r:"你想要的，是不被錢綁住的自由。<br>這也是今天最多姐妹的心願——今天，我們就開始算、開始種。"},
+    leg:{s:"你最放不下：資產傳承", r:"你想到的，是把愛好好傳下去。<br>這是最有溫度的一件事，也是老師最在乎的。"}
+  };
+  var GEN="謝謝你願意誠實面對自己的「現在」。<br><span class='hl'>看見，就是改變的開始。</span><br>今天這堂課，我們會一起，把心裡那份不安，慢慢理成清楚。";
+
+  var i=0, ans=[null,null,null];
+  function show(id){document.querySelectorAll('.screen').forEach(function(e){e.classList.remove('on');});document.getElementById(id).classList.add('on');window.scrollTo(0,0);}
+  function start(){i=0;ans=[null,null,null];render();show('s-q');}
+  function render(){
+    var Q=QS[i];
+    document.getElementById('qno').textContent=Q.no;
+    document.getElementById('qtext').innerHTML=Q.q+(Q.sub?'<span class="s">'+Q.sub+'</span>':'');
+    for(var d=0;d<3;d++)document.getElementById('d'+d).classList.toggle('act',d<=i);
+    var box=document.getElementById('opts');box.innerHTML='';
+    Q.opts.forEach(function(o,idx){
+      var b=document.createElement('button');b.className='opt'+(ans[i]&&ans[i].idx===idx?' sel':'');
+      b.innerHTML='<span class="mark"></span><span><b>'+o.t+'</b>'+(o.sub?'<span class="sub">'+o.sub+'</span>':'')+'</span>';
+      b.onclick=function(){ans[i]={idx:idx,t:o.t,k:o.k||null};render();document.getElementById('next').disabled=false;};
+      box.appendChild(b);
+    });
+    var nx=document.getElementById('next');
+    nx.disabled=!ans[i];
+    nx.textContent=(i===2)?'看看我的結果':'下一題';
+  }
+  function next(){if(!ans[i])return;if(i<2){i++;render();show('s-q');}else result();}
+  function result(){
+    var key=ans[1]&&ans[1].k?ans[1].k:'free';var R=REFL[key];
+    document.getElementById('r-seed').textContent=R.s;
+    document.getElementById('r-refl').innerHTML=R.r;
+    document.getElementById('r-msg').innerHTML=GEN;
+    show('s-result');
+  }
+  function restart(){show('s-intro');}
+</script>
+</body>
+</html>
