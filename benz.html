@@ -1,0 +1,383 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>風險規劃需求對應與應備分析表</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#FBF7EF; --paper:#FFFFFF; --ink:#3A2C20; --muted:#8C7C6B;
+  --brown:#7A4E2D; --brown-d:#573620;
+  --liab:#C75B23; --liab-bg:#FBEEE5; --liab-bd:#ECCBB6;
+  --med:#5B8C2A; --med-bg:#EFF4E4; --med-bd:#CFE0B0;
+  --ill:#3949AB; --ill-bg:#E9EBF7; --ill-bd:#C2C8EA;
+  --gold:#D9A328; --line:#E8DFCF; --line-d:#D8CBB4;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Noto Sans TC",sans-serif;background:var(--cream);color:var(--ink);line-height:1.6;padding:28px 16px 60px}
+.wrap{max-width:960px;margin:0 auto}
+h1,h2,h3{font-family:"Noto Serif TC",serif;font-weight:700;color:var(--brown-d)}
+
+header.top{display:flex;align-items:center;gap:22px;background:var(--paper);border:1px solid var(--line-d);border-radius:18px;padding:22px 26px;margin-bottom:22px}
+header.top svg{flex:0 0 auto}
+header.top .htext h1{font-size:25px;letter-spacing:1px}
+header.top .htext .sub{color:var(--muted);font-size:13.5px;margin-top:4px}
+header.top .htext .brand{color:var(--brown);font-size:13px;font-weight:500;margin-top:8px}
+
+.meta{display:flex;flex-wrap:wrap;gap:14px;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px 20px;margin-bottom:22px}
+.meta .f{display:flex;flex-direction:column;gap:4px}
+.meta label{font-size:12px;color:var(--muted)}
+.meta input{font-family:inherit;font-size:14px;padding:7px 10px;border:1px solid var(--line-d);border-radius:8px;background:var(--cream);color:var(--ink)}
+
+.card{background:var(--paper);border-radius:16px;padding:0;margin-bottom:22px;overflow:hidden;border:1px solid var(--line)}
+.card .head{display:flex;align-items:center;gap:12px;padding:15px 22px;border-bottom:1px solid var(--line)}
+.dot{width:13px;height:13px;border-radius:50%}
+.card .head h2{font-size:18px}
+.card .head .q{margin-left:auto;color:var(--muted);font-size:12.5px;font-style:italic}
+.card.liab .head{background:var(--liab-bg)} .card.liab .dot{background:var(--liab)} .card.liab .head h2{color:var(--liab)}
+.card.med .head{background:var(--med-bg)} .card.med .dot{background:var(--med)} .card.med .head h2{color:var(--med)}
+.card.ill .head{background:var(--ill-bg)} .card.ill .dot{background:var(--ill)} .card.ill .head h2{color:var(--ill)}
+.body{padding:18px 22px}
+
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{padding:8px 8px;text-align:right;border-bottom:1px solid var(--line)}
+th{font-weight:500;color:var(--muted);font-size:12px;text-align:right}
+th:first-child,td:first-child{text-align:left}
+td.item{font-weight:500;color:var(--ink)}
+.num-input{font-family:inherit;width:100%;max-width:118px;padding:6px 8px;border:1px solid var(--line-d);border-radius:7px;text-align:right;font-size:13.5px;background:var(--cream);color:var(--ink)}
+.num-input:focus{outline:none;border-color:var(--brown);background:#fff}
+.unit{color:var(--muted);font-size:11.5px;margin-left:2px}
+.out{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.card.liab .out{color:var(--liab)} .card.med .out{color:var(--med)} .card.ill .out{color:var(--ill)}
+.subnote{font-size:12px;color:var(--muted);margin-top:12px;line-height:1.6}
+
+.inline-row{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.inline-row:last-of-type{border-bottom:none}
+.inline-row .lab{font-weight:500;min-width:118px}
+.inline-row .sub{color:var(--muted);font-size:12px}
+.chk{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--ink);cursor:pointer}
+select.num-input{max-width:96px;cursor:pointer}
+
+.rowtot{display:flex;justify-content:space-between;align-items:baseline;padding:13px 22px;background:var(--cream);border-top:1px solid var(--line-d)}
+.rowtot .lab{font-weight:500}
+.rowtot .val{font-family:"Noto Serif TC",serif;font-weight:700;font-size:21px}
+.card.liab .rowtot .val{color:var(--liab)} .card.med .rowtot .val{color:var(--med)} .card.ill .rowtot .val{color:var(--ill)}
+.split{display:flex;gap:24px;padding:11px 22px;background:var(--cream);font-size:13px;color:var(--muted);flex-wrap:wrap}
+.split b{color:var(--ink);font-weight:700}
+
+.daily{display:flex;gap:14px;flex-wrap:wrap;margin-top:14px}
+.daily .box{flex:1;min-width:150px;background:var(--med-bg);border:1px solid var(--med-bd);border-radius:11px;padding:12px 14px}
+.daily .box .l{font-size:12px;color:var(--muted)}
+.daily .box .v{font-family:"Noto Serif TC",serif;font-weight:700;font-size:19px;color:var(--med);margin-top:3px}
+.daily .box.cancer{background:var(--ill-bg);border-color:var(--ill-bd)} .daily .box.cancer .v{color:var(--ill)}
+
+/* summary */
+.summary{background:var(--brown-d);color:#F4ECDF;border-radius:18px;padding:24px 26px;margin-bottom:18px}
+.summary h2{color:#FBEFD8;font-size:20px;margin-bottom:4px}
+.summary .ssub{color:#CDB89D;font-size:12.5px;margin-bottom:18px}
+.summary table{font-size:13.5px}
+.summary th{color:#C9B193}
+.summary td,.summary th{border-bottom:1px solid rgba(255,255,255,.13)}
+.summary td.item{color:#F4ECDF}
+.summary .gap{color:#F2C14E;font-weight:700;font-variant-numeric:tabular-nums}
+.summary .need,.summary .have{font-variant-numeric:tabular-nums}
+.grand{display:flex;flex-wrap:wrap;gap:14px;margin-top:20px}
+.grand .g{flex:1;min-width:150px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);border-radius:13px;padding:14px 16px}
+.grand .g .l{font-size:12px;color:#CDB89D}
+.grand .g .v{font-family:"Noto Serif TC",serif;font-weight:700;font-size:23px;margin-top:4px}
+.grand .g.need .v{color:#F4ECDF} .grand .g.have .v{color:#9FD68C} .grand .g.gap .v{color:#F2C14E}
+.bar{height:16px;border-radius:9px;background:rgba(255,255,255,.12);margin-top:18px;overflow:hidden;display:flex}
+.bar .have-seg{background:#7FBF63;height:100%}
+.bar .gap-seg{background:#E0A93C;height:100%}
+.barlegend{display:flex;gap:18px;font-size:12px;color:#CDB89D;margin-top:9px}
+.barlegend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px;vertical-align:middle}
+
+.actions{display:flex;gap:12px;justify-content:flex-end;margin-bottom:8px}
+button{font-family:inherit;font-size:14px;font-weight:500;padding:10px 20px;border-radius:10px;cursor:pointer;border:1px solid var(--brown);background:var(--brown);color:#fff;transition:opacity .15s}
+button.ghost{background:transparent;color:var(--brown)}
+button:hover{opacity:.85}
+footer{text-align:center;color:var(--muted);font-size:12px;margin-top:26px;line-height:1.8}
+
+@media (max-width:620px){
+  header.top{flex-direction:column;text-align:center}
+  th,td{padding:6px 4px;font-size:12.5px}
+  .num-input{max-width:92px}
+}
+@media print{
+  body{background:#fff;padding:0}
+  .actions,button{display:none}
+  .card,.meta,header.top,.summary{break-inside:avoid;box-shadow:none}
+  .summary{background:#fff;color:#222;border:1.5px solid #573620}
+  .summary h2,.summary td.item{color:#573620} .summary .grand .g{border-color:#ccc}
+  .summary .grand .g .v,.summary .gap,.summary th,.summary .ssub{color:#444}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <svg width="118" height="118" viewBox="0 0 190 190" aria-hidden="true">
+      <path d="M95 95 L95 15 A80 80 0 0 1 164 135 Z" fill="#F6D8C4"/>
+      <path d="M95 95 L26 135 A80 80 0 0 1 95 15 Z" fill="#DCE9C2"/>
+      <path d="M95 95 L164 135 A80 80 0 0 1 26 135 Z" fill="#CDD3EE"/>
+      <g stroke="#fff" stroke-width="3" stroke-linecap="round">
+        <line x1="95" y1="95" x2="95" y2="15"/>
+        <line x1="95" y1="95" x2="164" y2="135"/>
+        <line x1="95" y1="95" x2="26" y2="135"/>
+      </g>
+      <circle cx="95" cy="95" r="3" fill="#fff"/>
+      <text x="134" y="73" text-anchor="middle" font-family="Noto Serif TC,serif" font-weight="700" font-size="16" fill="#C75B23">責任</text>
+      <text x="56" y="73" text-anchor="middle" font-family="Noto Serif TC,serif" font-weight="700" font-size="16" fill="#5B8C2A">醫療</text>
+      <text x="95" y="142" text-anchor="middle" font-family="Noto Serif TC,serif" font-weight="700" font-size="15" fill="#3949AB">重病/殘</text>
+    </svg>
+    <div class="htext">
+      <h1>風險規劃需求對應與應備分析表</h1>
+      <div class="sub">依「責任 ・ 醫療 ・ 重病/殘」三大區塊盤點應備保障、比對現有保障、算出缺口</div>
+      <div class="brand">馥芸財富學苑 ・ 財務顧問 芸</div>
+    </div>
+  </header>
+
+  <div class="meta">
+    <div class="f"><label>客戶姓名</label><input type="text" id="cust-name" placeholder="姓名"></div>
+    <div class="f"><label>問診日期</label><input type="date" id="cust-date"></div>
+    <div class="f"><label>年收入(萬)</label><input type="number" id="annual-income" class="num-input" placeholder="0" style="max-width:120px"></div>
+    <div class="f"><label>每月生活支出(元)</label><input type="number" id="monthly-living" class="num-input" placeholder="0" style="max-width:120px"></div>
+  </div>
+
+  <!-- 責任 -->
+  <div class="card liab">
+    <div class="head"><span class="dot"></span><h2>責任 — 責任準備費用</h2><span class="q">家庭收入若因故中斷，有哪些費用需要準備？</span></div>
+    <div class="body">
+      <table>
+        <thead><tr><th style="width:24%">項目</th><th>月支出(元)</th><th>準備年期</th><th>一次性(元)</th><th>應備金額</th></tr></thead>
+        <tbody>
+          <tr><td class="item">基本生活費</td><td><input class="num-input" type="number" id="liv-month"></td><td><input class="num-input" type="number" id="liv-year" style="max-width:70px"></td><td>—</td><td class="out" id="r-liv">NT$ 0</td></tr>
+          <tr><td class="item">子女教育費</td><td><input class="num-input" type="number" id="edu-month"></td><td><input class="num-input" type="number" id="edu-year" style="max-width:70px"></td><td>—</td><td class="out" id="r-edu">NT$ 0</td></tr>
+          <tr><td class="item">父母孝養費</td><td><input class="num-input" type="number" id="par-month"></td><td><input class="num-input" type="number" id="par-year" style="max-width:70px"></td><td>—</td><td class="out" id="r-par">NT$ 0</td></tr>
+          <tr><td class="item">房貸/房租餘額</td><td>—</td><td>—</td><td><input class="num-input" type="number" id="mortgage"></td><td class="out" id="r-mort">NT$ 0</td></tr>
+          <tr><td class="item">其他貸款(流動/長期)</td><td>—</td><td>—</td><td><input class="num-input" type="number" id="otherloan"></td><td class="out" id="r-loan">NT$ 0</td></tr>
+        </tbody>
+      </table>
+      <div class="inline-row" style="margin-top:6px">
+        <span class="lab">最後費用</span>
+        <span><input class="num-input" type="number" id="final-wan" style="max-width:80px"><span class="unit">萬/人</span></span>
+        <span>×</span>
+        <span><input class="num-input" type="number" id="final-people" style="max-width:64px"><span class="unit">人</span></span>
+        <span class="out" id="r-final" style="margin-left:auto">NT$ 0</span>
+      </div>
+      <div class="inline-row">
+        <span class="lab">夫妻責任比例</span>
+        <span>本人 <input class="num-input" type="number" id="self-ratio" value="100" style="max-width:64px"><span class="unit">%</span></span>
+        <span>配偶 <input class="num-input" type="number" id="spouse-ratio" value="0" style="max-width:64px"><span class="unit">%</span></span>
+        <span class="sub">(依薪資比例或自訂)</span>
+      </div>
+    </div>
+    <div class="rowtot"><span class="lab">責任應備合計</span><span class="val" id="out-liab">NT$ 0</span></div>
+    <div class="split"><span>本人應備：<b id="out-liab-self">NT$ 0</b></span><span>配偶應備：<b id="out-liab-spouse">NT$ 0</b></span></div>
+  </div>
+
+  <!-- 醫療 -->
+  <div class="card med">
+    <div class="head"><span class="dot"></span><h2>醫療 — 醫療應備費用</h2><span class="q">對於醫療保障，有何看法？應如何規劃？</span></div>
+    <div class="body">
+      <table>
+        <thead><tr><th style="width:22%">對象</th><th>病房費/日</th><th>看護費/日</th><th>薪資補償/日</th><th>日額合計</th></tr></thead>
+        <tbody>
+          <tr><td class="item">本人</td><td><input class="num-input" type="number" id="m1-room"></td><td><input class="num-input" type="number" id="m1-care"></td><td><input class="num-input" type="number" id="m1-sal"></td><td class="out" id="r-m1">NT$ 0</td></tr>
+          <tr><td class="item">配偶</td><td><input class="num-input" type="number" id="m2-room"></td><td><input class="num-input" type="number" id="m2-care"></td><td><input class="num-input" type="number" id="m2-sal"></td><td class="out" id="r-m2">NT$ 0</td></tr>
+          <tr><td class="item">子女</td><td><input class="num-input" type="number" id="m3-room"></td><td><input class="num-input" type="number" id="m3-care"></td><td><input class="num-input" type="number" id="m3-sal"></td><td class="out" id="r-m3">NT$ 0</td></tr>
+        </tbody>
+      </table>
+      <div class="inline-row" style="margin-top:6px">
+        <span class="lab">住院醫療雜費額度</span>
+        <span><input class="num-input" type="number" id="misc-wan" style="max-width:90px"><span class="unit">萬(總額)</span></span>
+        <span class="sub">納入下方應備缺口分析</span>
+      </div>
+      <div class="daily">
+        <div class="box"><div class="l">建議日額 — 全家合計</div><div class="v" id="r-day-total">NT$ 0 / 日</div></div>
+        <div class="box"><div class="l">醫療雜費 應備</div><div class="v" id="r-misc">NT$ 0</div></div>
+      </div>
+      <div class="subnote">醫療日額為「每日給付」目標,不計入一次性應備總額;規劃時以日額型住院/手術險補足。</div>
+    </div>
+  </div>
+
+  <!-- 重病/殘 -->
+  <div class="card ill">
+    <div class="head"><span class="dot"></span><h2>重病/殘 — 其他費用評估</h2><span class="q">重大事故的一次性與長期支出如何準備？</span></div>
+    <div class="body">
+      <div class="inline-row">
+        <span class="lab">長期照護</span>
+        <span><input class="num-input" type="number" id="ltc-month" style="max-width:110px"><span class="unit">元/月</span></span>
+        <span>×</span>
+        <span><input class="num-input" type="number" id="ltc-year" style="max-width:64px"><span class="unit">年</span></span>
+        <span class="out" id="r-ltc" style="margin-left:auto">NT$ 0</span>
+      </div>
+      <div class="inline-row">
+        <span class="lab">收入補償/殘障安養</span>
+        <span><input class="num-input" type="number" id="inc-month" style="max-width:110px"><span class="unit">元/月</span></span>
+        <span>×</span>
+        <span><input class="num-input" type="number" id="inc-year" style="max-width:64px"><span class="unit">年</span></span>
+        <span class="out" id="r-inc" style="margin-left:auto">NT$ 0</span>
+      </div>
+      <div class="inline-row">
+        <span class="lab">意外險應備</span>
+        <label class="chk"><input type="checkbox" id="acc-link" checked> 帶入責任應備合計</label>
+        <span><input class="num-input" type="number" id="acc-amt" style="max-width:130px"><span class="unit">元</span></span>
+        <span class="out" id="r-acc" style="margin-left:auto">NT$ 0</span>
+      </div>
+      <div class="inline-row">
+        <span class="lab">重大疾病應備</span>
+        <span>年收入 ×
+          <select class="num-input" id="ci-mult">
+            <option value="2">2 倍</option><option value="3" selected>3 倍</option>
+            <option value="4">4 倍</option><option value="5">5 倍</option>
+          </select>
+        </span>
+        <span class="sub">(年收入 × 2~5 倍)</span>
+        <span class="out" id="r-ci" style="margin-left:auto">NT$ 0</span>
+      </div>
+      <div class="inline-row">
+        <span class="lab">癌症險日額</span>
+        <span><input class="num-input" type="number" id="cancer-day" style="max-width:110px"><span class="unit">元/日</span></span>
+        <span class="sub">日額目標,不計入一次性總額</span>
+      </div>
+      <div class="daily">
+        <div class="box cancer"><div class="l">癌症險 建議日額</div><div class="v" id="r-cancer">NT$ 0 / 日</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 彙總 -->
+  <div class="summary">
+    <h2>應備 ・ 已備 ・ 缺口 分析</h2>
+    <div class="ssub">填入「已備」現有保額,即時算出各項保障缺口</div>
+    <table>
+      <thead><tr><th style="width:30%">保障需求</th><th>應備金額</th><th>已備(現有保額)</th><th>缺口</th></tr></thead>
+      <tbody>
+        <tr><td class="item">壽險 / 家庭責任</td><td class="need" id="s-need-life">NT$ 0</td><td><input class="num-input" type="number" id="have-life"></td><td class="gap" id="s-gap-life">NT$ 0</td></tr>
+        <tr><td class="item">意外險</td><td class="need" id="s-need-acc">NT$ 0</td><td><input class="num-input" type="number" id="have-acc"></td><td class="gap" id="s-gap-acc">NT$ 0</td></tr>
+        <tr><td class="item">重大疾病</td><td class="need" id="s-need-ci">NT$ 0</td><td><input class="num-input" type="number" id="have-ci"></td><td class="gap" id="s-gap-ci">NT$ 0</td></tr>
+        <tr><td class="item">長照 / 收入補償</td><td class="need" id="s-need-ltc">NT$ 0</td><td><input class="num-input" type="number" id="have-ltc"></td><td class="gap" id="s-gap-ltc">NT$ 0</td></tr>
+        <tr><td class="item">醫療雜費</td><td class="need" id="s-need-misc">NT$ 0</td><td><input class="num-input" type="number" id="have-misc"></td><td class="gap" id="s-gap-misc">NT$ 0</td></tr>
+      </tbody>
+    </table>
+    <div style="display:flex;gap:22px;flex-wrap:wrap;margin-top:14px;font-size:13px">
+      <label class="chk" style="color:#F4ECDF"><input type="checkbox" id="asset-on"> 現有生息資產納入已備</label>
+      <span><input class="num-input" type="number" id="asset-amt" style="max-width:130px;background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.25)"><span style="color:#CDB89D;font-size:11.5px"> 元</span></span>
+      <label class="chk" style="color:#F4ECDF"><input type="checkbox" id="group-on"> 團體保險納入已備</label>
+      <span><input class="num-input" type="number" id="group-amt" style="max-width:130px;background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.25)"><span style="color:#CDB89D;font-size:11.5px"> 元</span></span>
+    </div>
+    <div class="grand">
+      <div class="g need"><div class="l">應備總額</div><div class="v" id="g-need">NT$ 0</div></div>
+      <div class="g have"><div class="l">已備總額</div><div class="v" id="g-have">NT$ 0</div></div>
+      <div class="g gap"><div class="l">保障缺口</div><div class="v" id="g-gap">NT$ 0</div></div>
+    </div>
+    <div class="bar"><div class="have-seg" id="bar-have" style="width:0%"></div><div class="gap-seg" id="bar-gap" style="width:0%"></div></div>
+    <div class="barlegend"><span><i style="background:#7FBF63"></i>已備</span><span><i style="background:#E0A93C"></i>缺口</span></div>
+  </div>
+
+  <div class="actions">
+    <button class="ghost" onclick="if(confirm('確定清除所有欄位?'))location.reload()">清除重填</button>
+    <button onclick="window.print()">列印 / 存成 PDF</button>
+  </div>
+
+  <footer>
+    本表為風險需求試算工具,結果僅供規劃溝通參考,實際保額請依商品條款與核保結果為準。<br>
+    馥芸財富學苑 ・ 財務顧問 芸
+  </footer>
+</div>
+
+<script>
+(function(){
+  const $ = id => document.getElementById(id);
+  const num = id => { const el=$(id); if(!el) return 0; const v=parseFloat(el.value); return isNaN(v)?0:v; };
+  const fmt = n => 'NT$ ' + Math.round(n).toLocaleString('en-US');
+
+  function recalc(){
+    // 責任
+    const liv  = num('liv-month')*12*num('liv-year');
+    const edu  = num('edu-month')*12*num('edu-year');
+    const par  = num('par-month')*12*num('par-year');
+    const mort = num('mortgage');
+    const loan = num('otherloan');
+    const fin  = num('final-wan')*10000*num('final-people');
+    $('r-liv').textContent  = fmt(liv);
+    $('r-edu').textContent  = fmt(edu);
+    $('r-par').textContent  = fmt(par);
+    $('r-mort').textContent = fmt(mort);
+    $('r-loan').textContent = fmt(loan);
+    $('r-final').textContent= fmt(fin);
+    const liab = liv+edu+par+mort+loan+fin;
+    $('out-liab').textContent = fmt(liab);
+    $('out-liab-self').textContent   = fmt(liab*num('self-ratio')/100);
+    $('out-liab-spouse').textContent = fmt(liab*num('spouse-ratio')/100);
+
+    // 醫療
+    const m1 = num('m1-room')+num('m1-care')+num('m1-sal');
+    const m2 = num('m2-room')+num('m2-care')+num('m2-sal');
+    const m3 = num('m3-room')+num('m3-care')+num('m3-sal');
+    $('r-m1').textContent = fmt(m1);
+    $('r-m2').textContent = fmt(m2);
+    $('r-m3').textContent = fmt(m3);
+    $('r-day-total').textContent = fmt(m1+m2+m3) + ' / 日';
+    const misc = num('misc-wan')*10000;
+    $('r-misc').textContent = fmt(misc);
+
+    // 重病/殘
+    const ltc = num('ltc-month')*12*num('ltc-year');
+    const inc = num('inc-month')*12*num('inc-year');
+    $('r-ltc').textContent = fmt(ltc);
+    $('r-inc').textContent = fmt(inc);
+    const accInput = $('acc-amt');
+    if($('acc-link').checked){ accInput.value = Math.round(liab)||''; accInput.readOnly = true; accInput.style.opacity=.6; }
+    else { accInput.readOnly = false; accInput.style.opacity=1; }
+    const acc = $('acc-link').checked ? liab : num('acc-amt');
+    $('r-acc').textContent = fmt(acc);
+    const ci = num('annual-income')*10000*num('ci-mult');
+    $('r-ci').textContent = fmt(ci);
+    const cancerDay = num('cancer-day');
+    $('r-cancer').textContent = fmt(cancerDay) + ' / 日';
+
+    // 彙總
+    const needs = {
+      life: liab, acc: acc, ci: ci, ltc: ltc+inc, misc: misc
+    };
+    const haves = {
+      life: num('have-life'), acc: num('have-acc'), ci: num('have-ci'),
+      ltc: num('have-ltc'), misc: num('have-misc')
+    };
+    let totalNeed=0, totalHave=0;
+    ['life','acc','ci','ltc','misc'].forEach(k=>{
+      const need=needs[k], have=haves[k], gap=Math.max(0, need-have);
+      $('s-need-'+k).textContent = fmt(need);
+      $('s-gap-'+k).textContent  = fmt(gap);
+      totalNeed += need; totalHave += have;
+    });
+    let extraHave = 0;
+    if($('asset-on').checked) extraHave += num('asset-amt');
+    if($('group-on').checked) extraHave += num('group-amt');
+    totalHave += extraHave;
+    const totalGap = Math.max(0, totalNeed - totalHave);
+    $('g-need').textContent = fmt(totalNeed);
+    $('g-have').textContent = fmt(totalHave);
+    $('g-gap').textContent  = fmt(totalGap);
+
+    const denom = Math.max(totalNeed, totalHave, 1);
+    const haveW = Math.min(100, totalHave/denom*100);
+    const gapW  = Math.min(100-haveW, totalGap/denom*100);
+    $('bar-have').style.width = haveW+'%';
+    $('bar-gap').style.width  = gapW+'%';
+  }
+
+  document.addEventListener('input', recalc);
+  document.addEventListener('change', recalc);
+  recalc();
+})();
+</script>
+</body>
+</html>
